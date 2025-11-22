@@ -1,0 +1,178 @@
+{% extends 'core/base.html' %} 
+
+{% block title %} 
+Dashboard 
+{% endblock %} 
+
+{% block content %}
+<div id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
+<div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-title">Menu</div>
+    <a class="sidebar-link" href="#">Contact Us</a>
+    <div class="dropdown-header" onclick="toggleDropdown('myinfo-dropdown')">
+        <span>My Info</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="myinfo-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Profile</a>
+        <a class="sidebar-sublink" href="#">ID Card</a>
+        <a class="sidebar-sublink" href="#">Personal Info</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('infocorner-dropdown')">
+        <span>Info Corner</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="infocorner-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Announcements</a>
+        <a class="sidebar-sublink" href="#">Circulars</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('proctor-dropdown')">
+        <span>Proctor</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="proctor-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">My Proctor</a>
+        <a class="sidebar-sublink" href="#">Proctor Meetings</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('academics-dropdown')">
+        <span>Academics</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="academics-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Timetable</a>
+        <a class="sidebar-sublink" href="#">Attendance</a>
+        <a class="sidebar-sublink" href="#">Marks / Grades</a>
+        <a class="sidebar-sublink" href="#">Course Page</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('research-dropdown')">
+        <span>Research</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="research-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Publications</a>
+        <a class="sidebar-sublink" href="#">Projects</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('exam-dropdown')">
+        <span>Examination</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="exam-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Exam Schedule</a>
+        <a class="sidebar-sublink" href="#">Hall Ticket</a>
+        <a class="sidebar-sublink" href="#">Results</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('services-dropdown')">
+        <span>Services</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="services-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Library</a>
+        <a class="sidebar-sublink" href="#">Transport</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('bonafide-dropdown')">
+        <span>Bonafide</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="bonafide-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Apply</a>
+        <a class="sidebar-sublink" href="#">Track Requests</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('payment-dropdown')">
+        <span>Online Payments</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="payment-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Fees</a>
+        <a class="sidebar-sublink" href="#">Payment History</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('hostel-dropdown')">
+        <span>Hostels</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="hostel-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Room Allocation</a>
+        <a class="sidebar-sublink" href="#">Leave Application</a>
+    </div>
+    <div class="dropdown-header" onclick="toggleDropdown('account-dropdown')">
+        <span>My Account</span>
+        <span class="dropdown-arrow">▼</span>
+    </div>
+    <div id="account-dropdown" class="dropdown-content">
+        <a class="sidebar-sublink" href="#">Change Password</a>
+    </div>
+    <a class="sidebar-link logout" href="{% url 'logout' %}">Logout</a>
+</div>
+<div class="dashboard-content">
+  <h1 class="dash-welcome">Welcome, {{ user.username }}</h1>
+  <p class="dash-subtitle">Your student dashboard — quick overview of academics & updates.</p>
+  <div class="dash-grid">
+
+    <!-- Spotlight: now top-right & long -->
+    <div class="glass-card spotlight-card wide-spotlight">
+        <h3>Spotlight</h3>
+        <ul>
+          <li>Academic Calendar</li>
+          <li>Feedback Form Open</li>
+          <li>Mid-Term Exam Instructions</li>
+          <li>New Notice Released</li>
+        </ul>
+    </div>
+
+    <!-- Proctor Message moved to first row left -->
+    <div class="glass-card equal-card">
+        <h3>Proctor Message</h3>
+        <p>No messages from your proctor.</p>
+    </div>
+
+    <!-- Current Semester Courses -->
+    <div class="glass-card equal-card">
+        <h3>Current Semester Courses</h3>
+        <ul>
+          <li>Course 1</li>
+          <li>Course 2</li>
+          <li>Course 3</li>
+          <li>Course 4</li>
+          <li>Course 5</li>
+          <li>Course 6</li>
+        </ul>
+    </div>
+
+    <!-- CGPA & Credits -->
+    <div class="glass-card equal-card">
+        <h3>CGPA & Credit Status</h3>
+        <p>Total Credits Required: ---</p>
+        <p>Earned Credits: ---</p>
+        <p>Current CGPA: ---</p>
+    </div>
+
+</div>
+
+</div>
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const toggle = document.getElementById("sidebarToggle");
+    const isOpen = sidebar.classList.toggle("open");
+    overlay.classList.toggle("show");
+    if (isOpen) {
+      toggle.classList.add("hidden");
+    } else {
+      toggle.classList.remove("hidden");
+    }
+  }
+  function toggleDropdown(id) {
+    const dropdown = document.getElementById(id);
+    const arrow = event.currentTarget.querySelector(".dropdown-arrow");
+    
+    if (dropdown.style.display === "block") {
+      dropdown.style.display = "none";
+      arrow.style.transform = "rotate(0deg)";
+    } else {
+      dropdown.style.display = "block";
+      arrow.style.transform = "rotate(180deg)";
+    }
+  }
+</script>
+{% endblock %}

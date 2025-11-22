@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %} 
+{% block title %} 
+VTOP Home 
+{% endblock %} 
+{% block content %}
+<div class="home-container">  
+  <h2 class="home-title">Welcome to VTOP Clone</h2>
+  <div class="card-row">
+    <div class="card">
+      <div class="icon">🎓</div>
+      <h3>Student</h3>
+      <a href="{% url 'login' %}">
+        <button>Login</button>
+      </a>
+    </div>
+    <div class="card">
+      <div class="icon">🧑‍💼</div>
+      <h3>Employee</h3>
+        <button>Login</button>
+      </a>
+    </div>
+    <div class="card">
+      <div class="icon">👨‍👩‍👦</div>
+      <h3>Parent</h3>
+        <button>Login</button>
+      </a>
+    </div>
+    <div class="card">
+      <div class="icon">🧑‍🎓</div>
+      <h3>Alumni</h3>
+        <button>Login</button>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

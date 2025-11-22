@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}VTOP Clone{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}" />
+  </head>
+  <body>
+    <header class="top-header">
+      <img
+        src="{% static 'core/images/VIT_LOGO.png' %}"
+        alt="VIT Logo"
+        class="vit-logo"
+      />
+    </header>
+    {% block content %}
+    {% endblock %}
+    <script>
+      window.addEventListener("beforeunload", function () {
+        navigator.sendBeacon("/force-logout/");
+      });
+    </script>
+  </body>
+</html>
