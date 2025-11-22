@@ -44,5 +44,4 @@ def force_logout(request):
         if request.user.is_authenticated:
             logout(request)
         return HttpResponse("OK")
-
     return HttpResponse("Invalid request", status=400)
