@@ -185,6 +185,18 @@ body {
   border-radius: 0 20px 20px 0;
   transition: left 0.3s ease;
   z-index: 998;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
 }
 .sidebar.open {
   left: 0;
@@ -283,8 +295,12 @@ body {
 }
 .dropdown-content a {
   display: block;
-  margin: 8px 0;
+  margin: 3px 0;
   font-size: 15px;
+  padding-left: 8px;
+}
+.dropdown-content a::before {
+    content: "▣ ";
 }
 .dash-welcome {
   margin-bottom: 10px;
