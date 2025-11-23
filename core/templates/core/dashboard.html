@@ -1,9 +1,9 @@
 {% extends 'core/base.html' %} 
-{% load static %}
+{% load static %} 
 
 {% block title %} 
 Dashboard 
-{% endblock %}
+{% endblock %} 
 
 {% block content %}
 <div id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
@@ -109,6 +109,19 @@ Dashboard
   <p class="dash-subtitle">
     Welcome back — let's make this semester smoother than ever.
   </p>
+  <div id="live-clock" class="clock-widget"></div>
+  <div id="dark-toggle" class="dark-toggle">🌙</div>
+  <div class="banner">
+    <span
+      >✨ Welcome Back, {{ user.username }}! Let's crush this semester! ✨</span
+    >
+  </div>
+  <div class="quick-links">
+    <div class="q-item">📚 Courses</div>
+    <div class="q-item">📝 Exams</div>
+    <div class="q-item">📊 Grades</div>
+    <div class="q-item">🧾 Payments</div>
+  </div>
   <div class="dash-grid">
     <div class="glass-card spotlight-card wide-spotlight">
       <h3>Spotlight</h3>
@@ -124,14 +137,16 @@ Dashboard
       <p>No messages from your proctor.</p>
     </div>
     <div class="glass-card equal-card">
-      <h3>Current Semester Courses</h3>
-      <ul>
+      <h3 id="course-header" class="expand-title">
+        Current Semester Courses
+        <span class="arrow">›</span>
+      </h3>
+      <ul id="course-list" class="expand-list">
         <li>Course 1</li>
         <li>Course 2</li>
         <li>Course 3</li>
         <li>Course 4</li>
         <li>Course 5</li>
-        <li>Course 6</li>
       </ul>
     </div>
     <div class="glass-card equal-card">
@@ -140,7 +155,17 @@ Dashboard
       <p>Earned Credits: ---</p>
       <p>Current CGPA: ---</p>
     </div>
+    <div class="glass-card equal-card">
+      <h3>To-Do / Reminders</h3>
+
+      <input id="todo-input" class="todo-input" placeholder="Add a task..." />
+      <button id="todo-add" class="todo-btn">Add</button>
+
+      <ul id="todo-list" class="todo-list"></ul>
+    </div>
   </div>
 </div>
+<script src="{% static 'core/js/todo.js' %}"></script>
+<script src="{% static 'core/js/dashboard.js' %}"></script>
 <script src="{% static 'core/js/sidebar.js' %}"></script>
 {% endblock %}
