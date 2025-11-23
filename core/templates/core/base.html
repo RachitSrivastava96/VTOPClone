@@ -16,10 +16,6 @@
     </header>
     {% block content %}
     {% endblock %}
-    <script>
-      window.addEventListener("beforeunload", function () {
-        navigator.sendBeacon("/force-logout/");
-      });
-    </script>
+    <script src="{% static 'core/js/session.js' %}"></script>
   </body>
 </html>

@@ -4,8 +4,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import logout
-
 def index(request):
     return render(request, 'core/index.html')
 
@@ -29,7 +27,6 @@ def login_page(request):
 
 @login_required(login_url='login')
 def dashboard(request):
-    # For now, a simple dashboard page for logged-in users
     return render(request, 'core/dashboard.html', {'user': request.user})
 
 
@@ -44,4 +41,4 @@ def force_logout(request):
         if request.user.is_authenticated:
             logout(request)
         return HttpResponse("OK")
-    return HttpResponse("Invalid request", status=400)
+    return HttpResponse("Invalid request", status=400) 
