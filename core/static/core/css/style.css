@@ -572,3 +572,21 @@ body.dark .dark-toggle {
   margin: 4px 0;
   font-size: 15px;
 }
+.cred-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.cred-row:last-child {
+    border-bottom: none;
+}
+
+.cred-row strong {
+    opacity: 0.9;
+}
+
+.cred-row span {
+    opacity: 0.8;
+}

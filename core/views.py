@@ -5,11 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import JsonResponse
 from .models import ToDo
+from .models import StudentCredentials
 from django.views.decorators.csrf import csrf_exempt
 import json
 def index(request):
     return render(request, 'core/index.html')
-
 def login_page(request):
     if request.user.is_authenticated:
         return redirect('dashboard')
@@ -26,32 +26,28 @@ def login_page(request):
             messages.error(request, "Invalid username or password.")
 
     return render(request, 'core/login.html')
-
-
 @login_required(login_url='login')
 def dashboard(request):
     return render(request, 'core/dashboard.html', {'user': request.user})
-
 @login_required(login_url='login')
 def get_todos(request):
     todos = ToDo.objects.filter(user=request.user).values("id", "text", "is_done")
     return JsonResponse(list(todos), safe=False)
-
 def logout_view(request):
     logout(request)
     return redirect('login')
-
 @login_required
 def profile_view(request):
     return render(request, "core/profile.html")
-
 @login_required
 def id_card(request):
     return render(request, "core/id_card.html", {
         "user": request.user
     })
-    
-    
+@login_required
+def credentials_view(request):
+    creds, created = StudentCredentials.objects.get_or_create(user=request.user)
+    return render(request, "core/credentials.html", {"creds": creds})
 @csrf_exempt
 def force_logout(request):
     if request.method == "POST":
@@ -59,7 +55,6 @@ def force_logout(request):
             logout(request)
         return HttpResponse("OK")
     return HttpResponse("Invalid request", status=400) 
-
 @csrf_exempt
 @login_required
 def add_todo(request):
@@ -71,8 +66,6 @@ def add_todo(request):
         return JsonResponse({"id": todo.id, "text": todo.text, "is_done": todo.is_done})
 
     return JsonResponse({"error": "Invalid task"}, status=400)
-
-
 @csrf_exempt
 @login_required
 def toggle_todo(request, todo_id):
@@ -80,8 +73,6 @@ def toggle_todo(request, todo_id):
     todo.is_done = not todo.is_done
     todo.save()
     return JsonResponse({"status": "updated", "is_done": todo.is_done})
-
-
 @csrf_exempt
 @login_required
 def delete_todo(request, todo_id):

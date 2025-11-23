@@ -14,4 +14,5 @@ urlpatterns = [
     path("api/todos/delete/<int:todo_id>/", views.delete_todo, name="delete_todo"),
     path("profile/", views.profile_view, name="profile"),
     path("id-card/", views.id_card, name="id_card"),
+    path("credentials/", views.credentials_view, name="credentials"),
 ]
