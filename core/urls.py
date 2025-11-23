@@ -12,4 +12,6 @@ urlpatterns = [
     path("api/todos/add/", views.add_todo, name="add_todo"),
     path("api/todos/toggle/<int:todo_id>/", views.toggle_todo, name="toggle_todo"),
     path("api/todos/delete/<int:todo_id>/", views.delete_todo, name="delete_todo"),
+    path("profile/", views.profile_view, name="profile"),
+    path("id-card/", views.id_card, name="id_card"),
 ]

@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}ID Card{% endblock %}
+
+{% block content %}
+<div class="dashboard-content">
+
+    <h1 class="dash-welcome">Student ID Card</h1>
+    <p class="dash-subtitle">Your official VTOP Clone identity</p>
+
+    <div class="id-card">
+        <div class="id-left">
+            <img src="{% static 'core/images/user_default.png' %}" class="id-photo">
+        </div>
+
+        <div class="id-right">
+            <h2>{{ user.username }}</h2>
+            <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Enrollment No:</strong> {{ user.username }}</p>
+            <p><strong>Program:</strong> B.Tech (Something Something 😎)</p>
+            <p><strong>Status:</strong> Active Student</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

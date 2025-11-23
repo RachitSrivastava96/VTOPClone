@@ -32,7 +32,7 @@ def login_page(request):
 def dashboard(request):
     return render(request, 'core/dashboard.html', {'user': request.user})
 
-@login_required
+@login_required(login_url='login')
 def get_todos(request):
     todos = ToDo.objects.filter(user=request.user).values("id", "text", "is_done")
     return JsonResponse(list(todos), safe=False)
@@ -41,7 +41,17 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+@login_required
+def profile_view(request):
+    return render(request, "core/profile.html")
 
+@login_required
+def id_card(request):
+    return render(request, "core/id_card.html", {
+        "user": request.user
+    })
+    
+    
 @csrf_exempt
 def force_logout(request):
     if request.method == "POST":

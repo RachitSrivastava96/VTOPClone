@@ -16,8 +16,8 @@ Dashboard
     <span class="dropdown-arrow">⇂</span>
   </div>
   <div id="myinfo-dropdown" class="dropdown-content">
-    <a class="sidebar-sublink" href="#">Profile</a>
-    <a class="sidebar-sublink" href="#">ID Card</a>
+    <a class="sidebar-sublink" href="{% url 'profile' %}">Profile</a>
+    <a class="sidebar-sublink" href="{% url 'id_card' %}">ID Card</a>
     <a class="sidebar-sublink" href="#">Credentials</a>
     <a class="sidebar-sublink" href="#">Acknowledgement View</a>
     <a class="sidebar-sublink" href="#">Student Bank Info</a>
@@ -90,32 +90,35 @@ Dashboard
     <span class="dropdown-arrow">⇂</span>
   </div>
   <div id="services-dropdown" class="dropdown-content">
-    <a class="sidebar-sublink" href="#">Library</a>
-    <a class="sidebar-sublink" href="#">Transport</a>
+    <a class="sidebar-sublink" href="#">Transscript Request</a>
+    <a class="sidebar-sublink" href="#">Programme Migration</a>
+    <a class="sidebar-sublink" href="#">Late Hour Request</a>
+    <a class="sidebar-sublink" href="#">Final Year Registration</a>
   </div>
   <div class="dropdown-header" onclick="toggleDropdown('bonafide-dropdown')">
     <span>Bonafide</span>
     <span class="dropdown-arrow">⇂</span>
   </div>
   <div id="bonafide-dropdown" class="dropdown-content">
-    <a class="sidebar-sublink" href="#">Apply</a>
-    <a class="sidebar-sublink" href="#">Track Requests</a>
+    <a class="sidebar-sublink" href="#">Apply Bonafide</a>
   </div>
   <div class="dropdown-header" onclick="toggleDropdown('payment-dropdown')">
     <span>Online Payments</span>
     <span class="dropdown-arrow">⇂</span>
   </div>
   <div id="payment-dropdown" class="dropdown-content">
-    <a class="sidebar-sublink" href="#">Fees</a>
-    <a class="sidebar-sublink" href="#">Payment History</a>
+    <a class="sidebar-sublink" href="#">Payments</a>
+    <a class="sidebar-sublink" href="#">Payments Reciepts</a>
+    <a class="sidebar-sublink" href="#">Fees Intimation</a>
   </div>
   <div class="dropdown-header" onclick="toggleDropdown('hostel-dropdown')">
     <span>Hostels</span>
     <span class="dropdown-arrow">⇂</span>
   </div>
   <div id="hostel-dropdown" class="dropdown-content">
-    <a class="sidebar-sublink" href="#">Room Allocation</a>
-    <a class="sidebar-sublink" href="#">Leave Application</a>
+    <a class="sidebar-sublink" href="#">Leave Request</a>
+    <a class="sidebar-sublink" href="#">Biometric Report</a>
+    <a class="sidebar-sublink" href="#">Hostel Room Allotment</a>
   </div>
   <div class="dropdown-header" onclick="toggleDropdown('account-dropdown')">
     <span>My Account</span>
@@ -134,9 +137,7 @@ Dashboard
   <div id="live-clock" class="clock-widget"></div>
   <div id="dark-toggle" class="dark-toggle">🌙</div>
   <div class="banner">
-    <span
-      >✨ Welcome Back, {{ user.username }}! ✨</span
-    >
+    <span>✨ Welcome Back, {{ user.username }}! ✨</span>
   </div>
   <div class="quick-links">
     <div class="q-item">📚 Courses</div>
