@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function addTaskToUI(task, skipAnimation = false) {
-    // Check if task already exists in DOM (prevents duplicates)
     if (document.querySelector(`[data-id="${task.id}"]`)) return;
 
     const li = document.createElement("li");
@@ -37,22 +36,16 @@ document.addEventListener("DOMContentLoaded", () => {
         <button class="todo-toggle">✓</button>
         <button class="todo-delete">✗</button>
     `;
-
-    // ---- Fade-in Animation ----
     if (!skipAnimation) {
         li.classList.add("fade-in");
         setTimeout(() => li.classList.remove("fade-in"), 300);
     }
-
-    // Toggle done
     li.querySelector(".todo-toggle").addEventListener("click", () => {
         fetch(`/api/todos/toggle/${task.id}/`, { method: "POST" })
         .then(() => {
             li.querySelector(".todo-text").classList.toggle("done");
         });
     });
-
-    // Delete with SLIDE OUT animation
     li.querySelector(".todo-delete").addEventListener("click", () => {
         li.classList.add("slide-out");
         setTimeout(() => {
