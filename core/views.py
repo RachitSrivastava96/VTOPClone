@@ -13,18 +13,15 @@ def index(request):
 def login_page(request):
     if request.user.is_authenticated:
         return redirect('dashboard')
-
     if request.method == 'POST':
         username = request.POST.get('username', '').strip()
         password = request.POST.get('password', '')
-
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('dashboard')
         else:
             messages.error(request, "Invalid username or password.")
-
     return render(request, 'core/login.html')
 @login_required(login_url='login')
 def dashboard(request):
