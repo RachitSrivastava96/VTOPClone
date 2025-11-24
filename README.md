@@ -208,18 +208,10 @@ For production deployment:
 5. Configure static files serving
 6. Set up proper security headers
 
-## 📄 License
-
-This project is open source and available for educational purposes.
-
-## 👥 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
 ## 📞 Support
 
 For issues and questions, please open an issue in the repository.
 
----
+or Contact : rachitsrivastava0fficial96@gmail.com
 
 **Note**: This is a clone/replication project for educational purposes. Ensure compliance with your institution's policies when using or deploying this application.
