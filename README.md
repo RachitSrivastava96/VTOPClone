@@ -1,8 +1,12 @@
-# VTOPClone
+# Project Title
+
+## VTOPClone
+
+## Overview
 
 A Django-based web application that replicates the core functionality of VIT Online Portal (VTOP), providing students with an intuitive interface to manage their academic information, credentials, and tasks.
 
-## 🚀 Features
+## Features
 
 - **User Authentication**: Secure login and logout functionality with session management
 - **Student Dashboard**: Centralized hub for accessing all student services
@@ -12,14 +16,16 @@ A Django-based web application that replicates the core functionality of VIT Onl
 - **ID Card**: Digital ID card display
 - **Session Management**: Automatic session timeout after 20 minutes of inactivity
 
-## 🛠️ Tech Stack
+## Technologies/Tools Used
 
 - **Backend**: Django 5.2.8
 - **Database**: SQLite3
 - **Frontend**: HTML, CSS, JavaScript
 - **Authentication**: Django's built-in authentication system
 
-## 📋 Prerequisites
+## Steps to Install & Run the Project
+
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -70,7 +76,7 @@ Before you begin, ensure you have the following installed:
    python manage.py createsuperuser
    ```
 
-## 🚀 Running the Application
+## Running the Application
 
 1. **Start the development server**
    ```bash
@@ -84,7 +90,7 @@ Before you begin, ensure you have the following installed:
 3. **Access the admin panel** (if superuser created)
    - Navigate to: `http://127.0.0.1:8000/admin/`
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 VTOPClone/
@@ -115,7 +121,7 @@ VTOPClone/
 └── README.md                # Project documentation
 ```
 
-## 📝 Key Components
+## Key Components
 
 ### Models
 
@@ -144,7 +150,7 @@ VTOPClone/
 - `/api/todos/` - To-do list API endpoints
 - `/admin/` - Django admin panel
 
-## 🔒 Security Features
+## Security Features
 
 - **Session Management**: 
   - Sessions expire after 20 minutes of inactivity
@@ -153,7 +159,7 @@ VTOPClone/
 - **CSRF Protection**: Django's built-in CSRF protection
 - **Authentication Required**: Protected routes require user login
 
-## 🎨 Customization
+## Customization
 
 ### Creating a New User
 
@@ -173,14 +179,14 @@ When a new user is created, a `StudentCredentials` object is automatically gener
 - Random WiFi password (12 characters)
 - Auto-generated Library ID (format: LIB#####)
 
-## 🧪 Testing
+## Instructions for Testing
 
 Run the test suite:
 ```bash
 python manage.py test
 ```
 
-## 📦 Database
+## Database
 
 The project uses SQLite3 by default. To reset the database:
 
@@ -189,7 +195,7 @@ rm db.sqlite3
 python manage.py migrate
 ```
 
-## 🔄 Database Migrations
+## Database Migrations
 
 Create new migrations after model changes:
 ```bash
@@ -197,7 +203,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-## 🌐 Deployment
+## Deployment
 
 For production deployment:
 
@@ -208,7 +214,7 @@ For production deployment:
 5. Configure static files serving
 6. Set up proper security headers
 
-## 📞 Support
+## Support
 
 For issues and questions, please open an issue in the repository.
 
