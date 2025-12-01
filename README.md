@@ -1,27 +1,97 @@
-# Project Title
-
-## VTOPClone
+# VTOPClone
 
 ## Overview
 
-A Django-based web application that replicates the core functionality of VIT Online Portal (VTOP), providing students with an intuitive interface to manage their academic information, credentials, and tasks.
+VTOPClone is a Django-powered recreation of the VIT Online Portal (VTOP). It centralizes academic utilities—identity management, class utilities, task tracking, and service shortcuts—into a glassmorphism-inspired dashboard that feels modern while emulating the original workflow students expect.
 
-## Features
+The project mixes Django views/REST-like endpoints with vanilla JavaScript widgets (sidebar, to-do list, dark mode, expandable cards) so the experience remains lightweight yet interactive without external frameworks.
 
-- **User Authentication**: Secure login and logout functionality with session management
-- **Student Dashboard**: Centralized hub for accessing all student services
-- **To-Do List**: Personal task management system with add, toggle, and delete capabilities
-- **Student Credentials**: Management of WiFi credentials and Library ID
-- **Profile Page**: View and manage student profile information
-- **ID Card**: Digital ID card display
-- **Session Management**: Automatic session timeout after 20 minutes of inactivity
+## Comprehensive Feature Breakdown
+
+### Authentication & Session Flow
+- **Secure Login/Logout**: Uses Django’s authentication backend, CSRF protection on all forms, and the default password hashing pipeline.
+- **Session Hardening**: Sessions expire after 20 minutes of inactivity, are saved per request, and are invalidated when the browser session ends—mirroring VTOP’s security posture.
+- **Access Control**: Every student-facing view (`dashboard`, `profile`, `id_card`, `credentials`, to-do APIs) checks for authenticated users before rendering data.
+
+### Landing Experience
+- **Marketing-style Landing Page** (`index`): Animated hero cards highlight primary portal actions; gradients and blur effects come from `style.css`.
+- **Responsive Header**: Fixed translucent navbar keeps navigation accessible on scroll, ensuring the mobile menu button remains visible.
+
+### Sidebar & Navigation System
+- **Collapsible Sidebar** (`sidebar.js`): Tap/click toggles the sliding drawer plus an overlay layer for focus on small screens.
+- **Categorized Dropdowns**: Every service cluster (My Info, Info Corner, Academics, Research, Examination, Services, Bonafide, Online Payments, Hostels, My Account) expands via accordion animation defined in CSS.
+- **Custom Icons & Bullets**: CSS pseudo-elements generate uniform bullet markers for sub-links, ensuring a clean, accessible navigation tree.
+- **Logout Shortcut**: Persistent CTA at the bottom keeps sign-out one click away.
+
+### Dashboard Widgets
+- **Personalized Greeting**: Uses `{{ user.username }}` to render a welcome banner plus motivational subtitle.
+- **Live Clock** (`dashboard.js`): Updates every second to mimic VTOP’s real-time status indicators.
+- **Dark Mode Toggle** (`darkmode.js`): Stores user preference in `localStorage`, switching CSS variables for muted palettes during night study sessions.
+- **Quick Link Pills**: Static cards (Courses, Exams, Grades, Payments) help new users spot the core modules instantly.
+- **Spotlight Feed**: Highlight block for institutional notices (academic calendar, forms, exam reminders).
+- **Expandable Course List**: `Current Semester Courses` card collapses/expands; arrow indicator rotates via CSS transitions.
+- **CGPA Snapshot**: Placeholder card ready to ingest live GPA/credit data once backend services are wired.
+- **To-Do / Reminder Widget**:
+  - `todo.js` fetches tasks, renders list items, and binds add/toggle/delete events.
+  - Inline input/button pairing lets students track ad-hoc academic chores.
+
+### Identity & Profile Utilities
+- **Profile Page** (`profile_view`): Presents stored user metadata with layout parity to VTOP’s official profile worksheets.
+- **Digital ID Card** (`id_card`): Rendered as a printable badge referencing student identity/photo placeholders.
+- **Credential Wallet** (`credentials_view`):
+  - WiFi username/password auto-generated per account (`StudentCredentials` model).
+  - Library ID follows the `LIB#####` format.
+  - Shows creation timestamps for auditability.
+
+### Academic & Service Shortcuts
+Each sidebar dropdown intentionally mirrors the real portal taxonomy. Even if some links are placeholders, they map to expected workflows:
+- **My Info**: Profile, ID card, credentials, acknowledgement, banking, AAPAR upload.
+- **Info Corner**: FAQ, spotlight announcements, general notices.
+- **Proctor**: Advisor contact info and meeting history.
+- **Academics**: Faculty info, class messaging, curriculum, timetable, attendance, course page, QCM, academic calendar.
+- **Research**: Research profile, SEM request, coursework registration/status, meetings, attendance, leave, letters, thesis submission, document uploads.
+- **Examination**: Schedules (general/online/offline), marks/grades, review requests, history, arrears, re-exam apps.
+- **Services**: Transcript requests, program migration, late-hour approvals, final-year registration.
+- **Bonafide**: Certificate request entry point.
+- **Online Payments**: Payment portal, receipts, fee intimations.
+- **Hostels**: Leave requests, biometric logs, room allotment.
+- **My Account**: Password change controls.
+
+Even when a link currently routes to `#`, it preserves the UX skeleton for full feature parity later on.
+
+### To-Do API Suite
+- `get_todos`: Returns JSON list scoped to the current user.
+- `add_todo`: Validates body text, persists a new `ToDo` record, and returns the created entity.
+- `toggle_todo`: Flips completion status via AJAX call.
+- `delete_todo`: Removes a task record.
+
+These lightweight endpoints keep the dashboard responsive without requiring a SPA framework.
+
+### StudentCredentials Automation
+- Post-save signals or creation logic ensure every new `User` triggers a paired `StudentCredentials` entry.
+- WiFi password generator creates 12-character alphanumerics, keeping credentials unique per user.
+- Values surface in the dashboard and Credential page with masked password display capabilities if desired later.
+
+### Frontend Implementation Details
+- **CSS**: `core/static/core/css/style.css` defines glass panels, animated gradients, scroll bars, and responsive spacing.
+- **JavaScript Modules**:
+  - `sidebar.js`: Handles slide-in/out, dropdown toggles, overlay state.
+  - `darkmode.js`: Listens for toggle clicks, swaps CSS classes, stores preferences.
+  - `dashboard.js`: Controls live clock, expandable cards, and ties into the to-do widget.
+  - `todo.js`: Implements fetch/POST/DELETE interactions plus DOM manipulation.
+
+### Accessibility & UX Touches
+- Keyboard focus states preserved via CSS transitions.
+- Pseudo-elements supply bullet markers so screen readers treat them as list items.
+- Animations are kept under 0.3s to avoid motion sickness while adding polish.
 
 ## Technologies/Tools Used
 
 - **Backend**: Django 5.2.8
-- **Database**: SQLite3
-- **Frontend**: HTML, CSS, JavaScript
-- **Authentication**: Django's built-in authentication system
+- **Database**: SQLite3 (swap-friendly with PostgreSQL or MySQL)
+- **Frontend**: HTML, CSS, Vanilla JavaScript
+- **Authentication**: Django’s built-in auth & messaging frameworks
+- **Task Runner**: `manage.py` for migrations, shell, and dev server
 
 ## Steps to Install & Run the Project
 
@@ -125,18 +195,18 @@ VTOPClone/
 
 ### Models
 
-- **ToDo**: Stores user tasks with text, completion status, and timestamps
-- **StudentCredentials**: Manages student WiFi credentials and Library ID (auto-generated on user creation)
+- **ToDo**: Task text, completion flag, timestamps, and FK to the owner. Drives the dashboard reminder widget.
+- **StudentCredentials**: WiFi username/password, Library ID, and creation metadata. Auto-instantiated whenever a `User` is created so onboarding is frictionless.
 
 ### Views
 
-- `index`: Landing page
-- `login_page`: User authentication
-- `dashboard`: Main student dashboard
-- `profile_view`: Student profile page
-- `id_card`: Digital ID card display
-- `credentials_view`: View WiFi and Library credentials
-- `get_todos`, `add_todo`, `toggle_todo`, `delete_todo`: To-do list API endpoints
+- `index`: Landing page hero with CTA cards.
+- `login_page`: Handles GET form rendering and POST authentication.
+- `dashboard`: Aggregates widgets, sidebar, and JS bundles for authenticated users.
+- `profile_view`: Renders student metadata.
+- `id_card`: Builds the printable ID layout.
+- `credentials_view`: Shows WiFi/library credentials from `StudentCredentials`.
+- `get_todos`, `add_todo`, `toggle_todo`, `delete_todo`: JSON endpoints powering the to-do widget.
 
 ### URLs
 
@@ -152,12 +222,13 @@ VTOPClone/
 
 ## Security Features
 
-- **Session Management**: 
-  - Sessions expire after 20 minutes of inactivity
-  - Sessions close when browser is closed
-  - Session saved on every request
+- **Session Management**:
+  - 20-minute inactivity timeout for safety.
+  - Browser-close invalidation.
+  - `SESSION_SAVE_EVERY_REQUEST = True` to ensure sliding expiration.
 - **CSRF Protection**: Django's built-in CSRF protection
-- **Authentication Required**: Protected routes require user login
+- **Authentication Required**: Django decorators/logic guard every sensitive view.
+- **Secure Defaults**: Relies on Django password hashing, `X-Frame-Options`, and other middleware defaults.
 
 ## Customization
 
