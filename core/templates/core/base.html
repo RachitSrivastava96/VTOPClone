@@ -6,15 +6,12 @@
     <title>{% block title %}VTOP Clone{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}" />
   </head>
-  <body>
+  <body class="{% block body_class %}{% endblock %}">
     <header class="top-header">
-      <img
-        src="{% static 'core/images/VIT_LOGO.png' %}"
-        alt="VIT Logo"
-        class="vit-logo"
-      />
+      <img src="{% static 'core/images/VIT_LOGO.png' %}" alt="VIT Logo" class="vit-logo" />
     </header>
     {% block content %} 
     {% endblock %}
+    <script src="{% static 'core/js/darkmode.js' %}"></script>
   </body>
 </html>

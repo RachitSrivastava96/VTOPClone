@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import JsonResponse
 from .models import ToDo
-from .models import StudentCredentials
+from .models import StudentCredentials, extract_branch_from_username
 from django.views.decorators.csrf import csrf_exempt
 import json
 def index(request):
@@ -38,12 +38,26 @@ def profile_view(request):
     return render(request, "core/profile.html")
 @login_required
 def id_card(request):
+    creds, _ = StudentCredentials.objects.get_or_create(user=request.user)
+    if not creds.branch_name:
+        code, name = extract_branch_from_username(request.user.username)
+        if name:
+            creds.branch_code = code
+            creds.branch_name = name
+            creds.save()
     return render(request, "core/id_card.html", {
-        "user": request.user
+        "user": request.user,
+        "creds": creds,
     })
 @login_required
 def credentials_view(request):
     creds, created = StudentCredentials.objects.get_or_create(user=request.user)
+    if not creds.branch_name:
+        code, name = extract_branch_from_username(request.user.username)
+        if name:
+            creds.branch_code = code
+            creds.branch_name = name
+            creds.save()
     return render(request, "core/credentials.html", {"creds": creds})
 @csrf_exempt
 def force_logout(request):
