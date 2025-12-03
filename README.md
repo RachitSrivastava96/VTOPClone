@@ -130,12 +130,6 @@ Before you begin, ensure you have the following installed:
    ```bash
    pip install django
    ```
-
-   Or install from requirements.txt if available:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
 5. **Run database migrations**
    ```bash
    python manage.py migrate
@@ -147,7 +141,6 @@ Before you begin, ensure you have the following installed:
    ```
 
 ## Running the Application
-
 1. **Start the development server**
    ```bash
    python manage.py runserver
@@ -188,6 +181,8 @@ VTOPClone/
 │
 ├── db.sqlite3               # SQLite database
 ├── manage.py                # Django management script
+├── requirements.txt         # Python dependencies for the project
+├── Statement.md             # Problem description / project statement
 └── README.md                # Project documentation
 ```
 
@@ -290,5 +285,3 @@ For production deployment:
 For issues and questions, please open an issue in the repository.
 
 or Contact : rachitsrivastava0fficial96@gmail.com
-
-**Note**: This is a clone/replication project for educational purposes. Ensure compliance with your institution's policies when using or deploying this application.
