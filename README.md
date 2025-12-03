@@ -170,6 +170,7 @@ VTOPClone/
 │   ├── admin.py             # Admin configuration
 │   ├── models.py            # Database models
 │   ├── views.py             # View functions
+│   ├── middleware.py        # Custom single-session/tab-safe middleware
 │   ├── urls.py              # URL routing
 │   └── tests.py             # Unit tests
 │
@@ -218,9 +219,16 @@ VTOPClone/
 ## Security Features
 
 - **Session Management**:
-  - 20-minute inactivity timeout for safety.
-  - Browser-close invalidation.
+  - 20-minute inactivity timeout for safety (`SESSION_COOKIE_AGE = 20 * 60`).
+  - Browser-close invalidation (`SESSION_EXPIRE_AT_BROWSER_CLOSE = True`).
   - `SESSION_SAVE_EVERY_REQUEST = True` to ensure sliding expiration.
+  - Database-backed sessions (`SESSION_ENGINE = 'django.contrib.sessions.backends.db'`).
+  - Secure cookie flags for better protection: `SESSION_COOKIE_SECURE = True`, `SESSION_COOKIE_HTTPONLY = True`, `SESSION_COOKIE_SAMESITE = 'Lax'`.
+- **Single-Session Enforcement**:
+  - Custom `core.middleware.SingleSessionMiddleware` ensures one active session per browser/tab context.
+  - Uses a per-login `tab_session_id` stored in the Django session and mirrored into `sessionStorage` on the client.
+  - Detects new tabs or mismatched session IDs and triggers a safe logout + redirect back to `/login/`.
+  - Injected JavaScript automatically appends the session ID to form posts, fetch/AJAX calls, and internal navigation links to keep server and client in sync.
 - **CSRF Protection**: Django's built-in CSRF protection
 - **Authentication Required**: Django decorators/logic guard every sensitive view.
 - **Secure Defaults**: Relies on Django password hashing, `X-Frame-Options`, and other middleware defaults.
